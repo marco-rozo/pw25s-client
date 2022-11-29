@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/buttons";
-import { Container } from "../../components/container";
-import { Input } from "../../components/inputs";
+import { Button } from "../../components/Buttons";
+import { Container } from "../../components/Container";
+import { Input } from "../../components/Inputs";
 import AuthService from "../../service/AuthService";
 
 export function LoginPage() {
