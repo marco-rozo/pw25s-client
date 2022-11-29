@@ -2,11 +2,14 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Buttons";
 import { Container } from "../../components/Container";
+import { DangerAlert } from "../../components/DangerAlert";
 import { Input } from "../../components/Inputs";
 import AuthService from "../../service/AuthService";
 
 export function LoginPage() {
   const [pendingApiCall, setPendingApiCall] = useState(false);
+  const [apiError, setApiError] = useState(false);
+
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -34,9 +37,11 @@ export function LoginPage() {
       .then((response) => {
         localStorage.setItem("token", JSON.stringify(response.data.token));
         setPendingApiCall(false);
+        window.location.reload();
         console.log(response);
       })
       .catch((errorResponse) => {
+        setApiError(true);
         setPendingApiCall(false);
         console.log(errorResponse);
       });
@@ -69,9 +74,16 @@ export function LoginPage() {
             value={form.password}
             name="password"
           />
+
           <a href="#" className="text-xs text-purple-600 hover:underline">
             Forget Password?
           </a>
+
+          {apiError && (
+            <div className="mt-6">
+              <DangerAlert text="Falha ao efetuar login" />
+            </div>
+          )}
           <div className="mt-6">
             <Button
               text="Login"
