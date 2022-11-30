@@ -11,3 +11,8 @@ export interface IUserLogin {
   email: string;
   password: string;
 }
+
+export interface ICategory {
+  id?: number;
+  name: string;
+}
