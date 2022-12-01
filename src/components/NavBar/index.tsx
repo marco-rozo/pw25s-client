@@ -49,10 +49,10 @@ export function NavBar() {
         </NavLink>
 
         <a
-          href="#"
+          onClick={onClickLogout}
           className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 "
         >
-          Contact
+          Logout
         </a>
 
         {/* Logout */}
