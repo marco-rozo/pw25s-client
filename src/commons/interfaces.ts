@@ -1,8 +1,8 @@
 export interface IUserSignUp {
-  firstName: string,
-  lastName: string,
-  phone: string,
-  individualRegistration: string,
+  firstName: string;
+  lastName: string;
+  phone: string;
+  individualRegistration: string;
   email: string;
   password: string;
 }
@@ -15,4 +15,13 @@ export interface IUserLogin {
 export interface ICategory {
   id?: number;
   name: string;
+}
+
+export interface IAccount {
+  id?: number;
+  agence: number;
+  number: number;
+  name: string;
+  description: string;
+  type: number;
 }
