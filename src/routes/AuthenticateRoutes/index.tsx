@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
+import { AccountListPage } from "../../pages/AccountListPage";
 import { CategoryFormPage } from "../../pages/CategoryFormPage";
 import { CategoryListPage } from "../../pages/CategoryListPage";
 import { HomePage } from "../../pages/HomePage";
@@ -14,6 +15,9 @@ export function AuthenticatedRoutes() {
         <Route path="/categories" element={<CategoryListPage />} />
         <Route path="/categories/new" element={<CategoryFormPage />} />
         <Route path="/categories/:id" element={<CategoryFormPage />} />
+        <Route path="/accounts" element={<AccountListPage />} />
+        <Route path="/accounts/new" element={<CategoryFormPage />} />
+        <Route path="/accounts/:id" element={<CategoryFormPage />} />
 
 
         {/* qualquer outra rota q nao esteja definida */}
