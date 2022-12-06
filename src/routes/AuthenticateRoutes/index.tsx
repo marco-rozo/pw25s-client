@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
+import { AccountFormPage } from "../../pages/AccountFormPage";
 import { AccountListPage } from "../../pages/AccountListPage";
 import { CategoryFormPage } from "../../pages/CategoryFormPage";
 import { CategoryListPage } from "../../pages/CategoryListPage";
@@ -16,9 +17,8 @@ export function AuthenticatedRoutes() {
         <Route path="/categories/new" element={<CategoryFormPage />} />
         <Route path="/categories/:id" element={<CategoryFormPage />} />
         <Route path="/accounts" element={<AccountListPage />} />
-        <Route path="/accounts/new" element={<CategoryFormPage />} />
-        <Route path="/accounts/:id" element={<CategoryFormPage />} />
-
+        <Route path="/accounts/new" element={<AccountFormPage />} />
+        <Route path="/accounts/:id" element={<AccountFormPage />} />
 
         {/* qualquer outra rota q nao esteja definida */}
         {/*! Alterar para rota personalizada de 404 (página não encontrada) */}
