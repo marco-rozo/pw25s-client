@@ -47,6 +47,16 @@ export function NavBar() {
         >
           Accounts
         </NavLink>
+        <NavLink
+          to="/movements"
+          className={(navData) =>
+            navData.isActive
+              ? "font-bold py-2 pl-3 pr-4 text-purple-800 hover:text-purple-800 rounded bg-purple-100"
+              : "font-semibold py-2 pl-3 pr-4 text-purple-600 hover:text-purple-800 rounded hover:bg-purple-100"
+          }
+        >
+          Movements
+        </NavLink>
 
         <a
           onClick={onClickLogout}
