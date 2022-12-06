@@ -3,7 +3,8 @@ interface IButton {
   disabled: boolean;
   pendingApiCall: boolean;
   text: string;
-  onClick: () => void;
+  type?: "submit" | "reset" | "button" | undefined;
+  onClick?: () => void;
 }
 
 export function Button({
@@ -11,10 +12,12 @@ export function Button({
   disabled,
   pendingApiCall,
   text,
+  type,
   onClick,
 }: IButton) {
   return (
     <button
+      type={type ?? "button"}
       disabled={disabled}
       className={
         className ||
@@ -42,7 +45,7 @@ export function Button({
           </svg>
         </>
       )}
-      { !pendingApiCall && text}
+      {!pendingApiCall && text}
     </button>
   );
 }
