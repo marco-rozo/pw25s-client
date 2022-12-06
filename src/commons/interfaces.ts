@@ -19,9 +19,9 @@ export interface ICategory {
 
 export interface IAccount {
   id?: number;
-  agence: number;
-  number: number;
+  agence: string;
+  number: string;
   name: string;
   description: string;
-  type: number;
+  type: string;
 }
