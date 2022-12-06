@@ -52,7 +52,7 @@ export function AccountListPage() {
             className="block text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             type="button"
           >
-            <Link to="/categories/new">Nova Conta</Link>
+            <Link to="/accounts/new">Nova Conta</Link>
           </button>
         </div>
 
