@@ -20,8 +20,11 @@ export function CategoryFormPage() {
   });
   const [pendingApiCall, setPendingApiCall] = useState(false);
   const [apiError, setApiError] = useState(false);
+  const [formError, setFormError] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
+  const classError: string =
+    "block border-red-400 ring-red-300 ring w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40";
 
   useEffect(() => {
     if (id) {
@@ -41,6 +44,7 @@ export function CategoryFormPage() {
   }, []);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFormError(false);
     const { value, name } = event.target;
     setForm((previousForm) => {
       return {
@@ -54,6 +58,12 @@ export function CategoryFormPage() {
         [name]: "",
       };
     });
+  };
+
+  const onValidate = () => {
+    if (form.name.length > 0) onSubmit();
+
+    setFormError(true);
   };
 
   const onSubmit = () => {
@@ -89,7 +99,11 @@ export function CategoryFormPage() {
             classNameLabel="block text-sm font-semibold text-gray-800"
             placeholder="Nome"
             type="text"
-            className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            className={
+              !formError
+                ? "block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                : classError
+            }
             onChange={onChange}
             value={form.name}
             name="name"
@@ -98,7 +112,8 @@ export function CategoryFormPage() {
             text="Salvar"
             disabled={pendingApiCall}
             className="mt-5 w-full mb-3 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-600 rounded-md hover:bg-purple-500 focus:outline-none focus:bg-purple-500"
-            onClick={onSubmit}
+            onClick={onValidate}
+            // onClick={onSubmit}
             pendingApiCall={pendingApiCall}
           ></Button>
           {apiError && <DangerAlert text="Falha ao cadastrar a categoria." />}
