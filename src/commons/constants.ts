@@ -5,3 +5,8 @@ export const typesAccounts = [
   { id: "3", name: "Conta Corrente" },
   { id: "4", name: "Em Casa" },
 ];
+
+export const typesMovimentation = [
+  { id: 0, name: "Receita" },
+  { id: 1, name: "Saída" },
+];
