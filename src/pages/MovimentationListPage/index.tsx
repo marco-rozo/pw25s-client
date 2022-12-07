@@ -119,7 +119,7 @@ export function MovimentationListPage() {
                   <Table.Cell className="text-center">
                     <Link
                       className="cursor-pointer uppercase mr-1 text-xs bg-blue-100 py-2 pl-3 pr-4 text-blue-600 hover:text-blue-800 hover:bg-blue-300 rounded"
-                      to={`/accounts/${movimentation.id}`}
+                      to={`/movimentation/${movimentation.id}`}
                     >
                       editar
                     </Link>
