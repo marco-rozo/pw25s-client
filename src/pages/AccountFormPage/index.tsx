@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -56,6 +57,7 @@ export function AccountFormPage() {
     if (id) {
       AccountService.findById(parseInt(id))
         .then((response) => {
+          debugger;
           if (response.data) {
             setForm({
               id: response.data.id,
@@ -108,15 +110,15 @@ export function AccountFormPage() {
     });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (values: IAccount) => {
     debugger;
     const account: IAccount = {
       id: form.id,
-      name: form.name,
-      agence: form.agence,
-      number: form.number,
-      description: form.description,
-      type: form.type,
+      name: values.name,
+      agence: values.agence,
+      number: values.number,
+      description: values.description,
+      type: values.type,
     };
     setPendingApiCall(true);
     AccountService.save(account)
@@ -134,6 +136,32 @@ export function AccountFormPage() {
       });
   };
 
+  const schemaTest = Yup.object().shape({
+    name: Yup.string()
+      .min(1, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Is required"),
+    number: Yup.string()
+      .length(4, "Number must be 4 characters")
+      .required("Is required"),
+    agence: Yup.string()
+      .length(5, "Agence must be 5 characters")
+      .required("Is required"),
+    description: Yup.string().min(1, "Too Short!").max(100, "Too Long!"),
+  });
+
+  const schema = Yup.object().shape({
+    name: Yup.string()
+      .test(
+        "len",
+        "Nome precisa ter entre 1 e 255 caracteres",
+        (value: any) =>
+          value && value.toString().length >= 1 && value.toString().length <= 255
+      )
+      .required("Is required"),
+
+  });
+
   return (
     <>
       <div className="mt-8 w-full relative flex flex-col justify-center overflow-hidden items-center">
@@ -141,9 +169,22 @@ export function AccountFormPage() {
           <h1 className="text-3xl mb-5 font-bold tex90t-center text-purple-700">
             Cadastro de Conta
           </h1>
-          <Formik initialValues={form} onSubmit={onSubmit}>
+          <Formik
+            initialValues={form}
+            onSubmit={onSubmit}
+            validationSchema={schema}
+          >
             <Form>
-              <Input
+              <label className="block text-sm font-semibold text-gray-800">
+                Nome
+              </label>
+              <Field
+                name="name"
+                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                type="text"
+                placeholder="Nome"
+              />
+              {/* <Input
                 label="Nome"
                 classNameLabel="block text-sm font-semibold text-gray-800"
                 placeholder="Nome"
@@ -156,30 +197,53 @@ export function AccountFormPage() {
                 onChange={onChange}
                 value={form.name}
                 name="name"
+              /> */}
+              <ErrorMessage
+                name="name"
+                component="p"
+                className="mt-2 text-xs text-red-600"
               />
               <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
                 <div>
-                  <Input
-                    label="Número"
-                    classNameLabel="block text-sm font-semibold text-gray-800"
-                    placeholder="Número"
-                    type="tel"
-                    className={
-                      !formError
-                        ? "block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        : classError
-                    }
-                    onChange={onChange}
-                    value={form.number}
+                  <label className="block text-sm font-semibold text-gray-800">
+                    Número
+                  </label>
+                  <Field
                     name="number"
+                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    type="number"
+                    placeholder="Número"
                   />
+                  {/* 
+                  // label="Número"
+                    // classNameLabel="block text-sm font-semibold text-gray-800"
+                    // placeholder="Número"
+                    // type="number"
+                    // className={
+                    //   !formError
+                    //     ? "block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    //     : classError
+                    // }
+                    // onChange={onChange}
+                    // value={form.number}
+                    // name="number" */}
+                  
                 </div>
                 <div>
-                  <Input
+                  <label className="block text-sm font-semibold text-gray-800">
+                    Agência
+                  </label>
+                  <Field
+                    name="agence"
+                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    type="number"
+                    placeholder="Agência"
+                  />
+                  {/* <Input
                     label="Agência"
                     classNameLabel="block text-sm font-semibold text-gray-800"
                     placeholder="Agência"
-                    type="tel"
+                    type="number"
                     className={
                       !formError
                         ? "block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -188,7 +252,7 @@ export function AccountFormPage() {
                     onChange={onChange}
                     value={form.agence}
                     name="agence"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="mb-6">
@@ -201,6 +265,7 @@ export function AccountFormPage() {
                   className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Descrição..."
                   name="description"
+                  value={form.description}
                 ></textarea>
               </div>
               <div>
@@ -208,6 +273,7 @@ export function AccountFormPage() {
                   Tipo de conta
                 </label>
                 <select
+                  value={form.type}
                   onChange={selectTypeAccount}
                   className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 >
