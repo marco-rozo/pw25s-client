@@ -7,6 +7,7 @@ import Notify from "../../commons/notify";
 import { ToastContainer } from "react-toastify";
 import MovementationService from "../../service/MovementationService";
 import moment from "moment";
+import { typesMovimentation } from "../../commons/constants";
 
 export function MovimentationListPage() {
   const [data, setData] = useState([]);
@@ -17,11 +18,22 @@ export function MovimentationListPage() {
   }, []);
 
   const formatMoney = (val: string) => {
-    return '$' + Number(val).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-
-  }
+    return (
+      "$" +
+      Number(val)
+        .toFixed(2)
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    );
+  };
   const formatData = (data: string) => {
     return moment(data).format("DD-MM-YYYY HH:mm:ss");
+  };
+
+  let typeMovimentation = (type: number) => {
+    let filter = typesMovimentation.filter((e) => {
+      return Number(e.id) === type;
+    });
+    return filter[0].name.toString();
   };
 
   const loadData = () => {
@@ -53,7 +65,7 @@ export function MovimentationListPage() {
   return (
     <div>
       <div className="mt-5 container flex flex-col justify-center items-center sm:mx-10">
-        <div className="w-full md:w-10/12 flex justify-center items-center flex-col md:flex-row md:items-start md:justify-between">
+        <div className="w-full md:w-11/12 flex justify-center items-center flex-col md:flex-row md:items-start md:justify-between">
           <h1 className="text-3xl mb-5 font-bold text-center text-purple-700">
             Listagem de Movimentações
           </h1>
@@ -66,19 +78,22 @@ export function MovimentationListPage() {
         </div>
 
         {apiError && <DangerAlert text={apiError} />}
-        <div className="w-full md:w-10/12 mt-5">
+        <div className="w-full md:w-11/12 mt-5">
           <Table className="w-full table-fixed" striped={true} hoverable={true}>
             <Table.Head>
               <Table.HeadCell className="w-1/12 px-6 py-2 text-xs text-gray-500 col whitespace-nowrap">
                 #
               </Table.HeadCell>
-              <Table.HeadCell className="text-center w-2/12 md:w-3/12 px-6 py-2 text-xs text-gray-500 col">
+              <Table.HeadCell className="text-center w-2/12 md:w-1/12 px-6 py-2 text-xs text-gray-500 col">
+                Tipo
+              </Table.HeadCell>
+              <Table.HeadCell className="text-center w-2/12 md:w-/12 px-6 py-2 text-xs text-gray-500 col">
                 Valor Pago
               </Table.HeadCell>
-              <Table.HeadCell className="text-center w-2/12 md:w-3/12 px-6 py-2 text-xs text-gray-500 col">
+              <Table.HeadCell className="text-center w-2/12 md:w-2/12 px-6 py-2 text-xs text-gray-500 col">
                 Valor Original
               </Table.HeadCell>
-              <Table.HeadCell className="text-center w-2/12 md:w-3/12 px-6 py-2 text-xs text-gray-500 col">
+              <Table.HeadCell className="text-center w-2/12 md:w-2/12 px-6 py-2 text-xs text-gray-500 col">
                 CategoriaCompra
               </Table.HeadCell>
               <Table.HeadCell className="text-center w-2/12 md:w-3/12 px-6 py-2 text-xs text-gray-500 col">
@@ -100,6 +115,9 @@ export function MovimentationListPage() {
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     {movimentation.id}
                   </Table.Cell>
+                  <Table.Cell className={movimentation.type == 0 ? "text-center text-green-400 " : "text-center text-red-400"}>
+                    {typeMovimentation(movimentation.type)}
+                  </Table.Cell>
                   <Table.Cell className="text-center">
                     {formatMoney(movimentation.amountPaid)}
                   </Table.Cell>
@@ -107,7 +125,7 @@ export function MovimentationListPage() {
                     {formatMoney(movimentation.value)}
                   </Table.Cell>
                   <Table.Cell className="text-center">
-                  {movimentation.category!.name}
+                    {movimentation.category!.name}
                   </Table.Cell>
                   <Table.Cell className="text-center">
                     {movimentation.account!.name}
@@ -115,7 +133,7 @@ export function MovimentationListPage() {
                   <Table.Cell className="text-center">
                     {formatData(movimentation.dtDue)}
                   </Table.Cell>
-                  
+
                   <Table.Cell className="text-center">
                     <Link
                       className="cursor-pointer uppercase mr-1 text-xs bg-blue-100 py-2 pl-3 pr-4 text-blue-600 hover:text-blue-800 hover:bg-blue-300 rounded"
