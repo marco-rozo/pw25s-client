@@ -22,7 +22,7 @@ export function AccountListPage() {
         setApiError("");
       })
       .catch((responseError) => {
-        setApiError("Falha ao carregar categorias.");
+        setApiError("Falha ao carregar contas.");
       });
   };
 
@@ -43,7 +43,7 @@ export function AccountListPage() {
 
   return (
     <div>
-      <div className="mt-5 container flex flex-col justify-center items-center md:mx-10">
+      <div className="mt-5 container flex flex-col justify-center items-center sm:mx-10">
         <div className="w-full md:w-8/12 flex justify-center items-center flex-col md:flex-row md:items-start md:justify-between">
           <h1 className="text-3xl mb-5 font-bold text-center text-purple-700">
             Listagem de Contas
