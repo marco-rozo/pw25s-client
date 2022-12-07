@@ -1,7 +1,7 @@
-import { IAccount } from "../commons/interfaces";
+import { IMovimentationInsert } from "../commons/interfaces";
 import { api } from "../lib/axios";
 
-const save = (account: IAccount) => {
+const save = (account: IMovimentationInsert) => {
   return api.post("/movimentation", account);
 };
 
