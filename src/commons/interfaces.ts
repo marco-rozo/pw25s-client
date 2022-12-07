@@ -25,3 +25,15 @@ export interface IAccount {
   description: string;
   type: string;
 }
+
+export interface IMovimentation {
+  id?: number;
+  value: string;
+  amountPaid: string;
+  description: string;
+  type: string;
+  dtPayment: string;
+  dtDue: string;
+  category: ICategory
+  account: IAccount
+}
