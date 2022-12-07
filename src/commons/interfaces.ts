@@ -26,6 +26,15 @@ export interface IAccount {
   type: string;
 }
 
+export interface IMovimentationInsert {
+  accountId?: number;
+  categoryId?: number;
+  value: number;
+  amountPaid?: number;
+  description?: string;
+  type: string;
+}
+
 export interface IMovimentation {
   id?: number;
   value: string;
@@ -34,6 +43,6 @@ export interface IMovimentation {
   type: string;
   dtPayment: string;
   dtDue: string;
-  category: ICategory
-  account: IAccount
+  category: ICategory;
+  account: IAccount;
 }
