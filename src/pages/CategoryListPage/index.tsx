@@ -42,7 +42,7 @@ export function CategoryListPage() {
   return (
     <div>
       <div className="mt-5 container flex flex-col justify-center items-center md:mx-10">
-        <div className="w-full md:w-10/12 flex justify-center items-center flex-col md:flex-row md:items-start md:justify-between">
+        <div className="w-full md:w-11/12 flex justify-center items-center flex-col md:flex-row md:items-start md:justify-between">
           <h1 className="text-3xl mb-5 font-bold text-center text-purple-700">
             Listagem de Categoria
           </h1>
@@ -55,7 +55,7 @@ export function CategoryListPage() {
         </div>
 
         {apiError && <DangerAlert text={apiError} />}
-        <div className="w-full md:w-10/12 mt-5">
+        <div className="w-full md:w-11/12 mt-5">
           <Table className="w-full table-fixed" striped={true} hoverable={true}>
             <Table.Head>
               <Table.HeadCell className="w-1/12 px-6 py-2 text-xs text-gray-500 col whitespace-nowrap">
