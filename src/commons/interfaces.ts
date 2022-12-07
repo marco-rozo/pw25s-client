@@ -32,7 +32,7 @@ export interface IMovimentationInsert {
   value: number;
   amountPaid?: number;
   description?: string;
-  type: string;
+  type: number;
 }
 
 export interface IMovimentation {
@@ -40,7 +40,7 @@ export interface IMovimentation {
   value: string;
   amountPaid: string;
   description: string;
-  type: string;
+  type: number;
   dtPayment: string;
   dtDue: string;
   category: ICategory;
