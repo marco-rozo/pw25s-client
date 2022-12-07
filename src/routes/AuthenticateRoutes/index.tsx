@@ -5,6 +5,7 @@ import { AccountListPage } from "../../pages/AccountListPage";
 import { CategoryFormPage } from "../../pages/CategoryFormPage";
 import { CategoryListPage } from "../../pages/CategoryListPage";
 import { HomePage } from "../../pages/HomePage";
+import { MovimentationFormPage } from "../../pages/MovimentationFormPage";
 import { MovimentationListPage } from "../../pages/MovimentationListPage";
 
 export function AuthenticatedRoutes() {
@@ -21,8 +22,8 @@ export function AuthenticatedRoutes() {
         <Route path="/accounts/new" element={<AccountFormPage />} />
         <Route path="/accounts/:id" element={<AccountFormPage />} />
         <Route path="/movimentation" element={<MovimentationListPage />} />
-        <Route path="/movimentation/new" element={<AccountFormPage />} />
-        <Route path="/movimentation/:id" element={<AccountFormPage />} />
+        <Route path="/movimentation/new" element={<MovimentationFormPage />} />
+        <Route path="/movimentation/:id" element={<MovimentationFormPage />} />
 
         {/* qualquer outra rota q nao esteja definida */}
         {/*! Alterar para rota personalizada de 404 (página não encontrada) */}
