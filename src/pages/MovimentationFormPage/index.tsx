@@ -1,11 +1,8 @@
-import {
-  ChangeEvent,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { typesMovimentation } from "../../commons/constants";
 import {
   IAccount,
   ICategory,
@@ -27,7 +24,7 @@ export function MovimentationFormPage() {
     value: 0,
     amountPaid: 0,
     description: "",
-    type: "1",
+    type: 0,
     category: { id: undefined, name: "" },
     account: { id: undefined, name: "" },
   });
@@ -56,6 +53,14 @@ export function MovimentationFormPage() {
 
   const classError: string =
     "block border-red-400 ring-red-300 ring w-full px-4 py-2 mt-2 text-red-700 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40";
+
+  let typeMovimentationList = typesMovimentation.map((item: any, i: any) => {
+    return (
+      <option key={i} value={item.id}>
+        {item.name}
+      </option>
+    );
+  });
 
   // Executa ao carregar o componente
   useEffect(() => {
@@ -158,6 +163,16 @@ export function MovimentationFormPage() {
     });
   };
 
+  const selectTypeMovimentation = (e: any) => {
+    debugger;
+    setForm((previousForm) => {
+      return {
+        ...previousForm,
+        ["type"]: e.target.selectedIndex,
+      };
+    });
+  };
+
   const onSubmit = () => {
     debugger;
     const movimentation: IMovimentationInsert = {
@@ -165,7 +180,7 @@ export function MovimentationFormPage() {
       categoryId: form.category!.id,
       value: Number(form.value),
       amountPaid: Number(form.amountPaid),
-      type: form.type,
+      type: Number(form.type),
       description: form.description,
     };
     setPendingApiCall(true);
@@ -275,6 +290,18 @@ export function MovimentationFormPage() {
               name="description"
               value={form.description}
             ></textarea>
+          </div>
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-800">
+              Tipo de Movimentação
+            </label>
+            <select
+              value={form.type}
+              onChange={selectTypeMovimentation}
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            >
+              {typeMovimentationList}
+            </select>
           </div>
           <Button
             type="submit"
