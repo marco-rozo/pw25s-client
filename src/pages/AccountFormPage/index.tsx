@@ -207,20 +207,6 @@ export function AccountFormPage() {
                 type="text"
                 placeholder="Nome"
               />
-              {/* <Input
-                label="Nome"
-                classNameLabel="block text-sm font-semibold text-gray-800"
-                placeholder="Nome"
-                type="text"
-                className={
-                  !formError
-                    ? "block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                    : classError
-                }
-                onChange={onChange}
-                value={form.name}
-                name="name"
-              /> */}
               <ErrorMessage
                 name="name"
                 component="p"
@@ -237,19 +223,6 @@ export function AccountFormPage() {
                     type="number"
                     placeholder="Número"
                   />
-                  {/* 
-                  // label="Número"
-                    // classNameLabel="block text-sm font-semibold text-gray-800"
-                    // placeholder="Número"
-                    // type="number"
-                    // className={
-                    //   !formError
-                    //     ? "block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                    //     : classError
-                    // }
-                    // onChange={onChange}
-                    // value={form.number}
-                    // name="number" */}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-800">
@@ -261,20 +234,6 @@ export function AccountFormPage() {
                     type="number"
                     placeholder="Agência"
                   />
-                  {/* <Input
-                    label="Agência"
-                    classNameLabel="block text-sm font-semibold text-gray-800"
-                    placeholder="Agência"
-                    type="number"
-                    className={
-                      !formError
-                        ? "block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        : classError
-                    }
-                    onChange={onChange}
-                    value={form.agence}
-                    name="agence"
-                  /> */}
                 </div>
               </div>
               <div className="mb-6">
