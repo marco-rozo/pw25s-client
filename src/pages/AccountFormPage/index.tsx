@@ -57,14 +57,20 @@ export function AccountFormPage() {
     if (id) {
       AccountService.findById(parseInt(id))
         .then((response) => {
-          debugger;
           if (response.data) {
+            form.id = response.data.id;
+            form.name = response.data.name;
+            form.agence = response.data.agence;
+            form.number = response.data.number;
+            form.description = response.data.description;
+            form.type = response.data.type;
+
             setForm({
               id: response.data.id,
               name: response.data.name,
               agence: response.data.agence,
-              description: response.data.description,
               number: response.data.number,
+              description: response.data.description,
               type: response.data.type,
             });
           }
@@ -121,19 +127,35 @@ export function AccountFormPage() {
       type: values.type,
     };
     setPendingApiCall(true);
-    AccountService.save(account)
-      .then((response) => {
-        setPendingApiCall(false);
-        navigate("/accounts");
-      })
-      .catch((responseError) => {
-        if (responseError.response.data.validationErrors) {
-          setErrors(responseError.response.data.validationErrors);
-        }
-        Notify.error("Erro ao cadastrar conta");
-        setPendingApiCall(false);
-        setApiError(true);
-      });
+    if (id) {
+      AccountService.update(account)
+        .then((response) => {
+          setPendingApiCall(false);
+          navigate("/accounts");
+        })
+        .catch((responseError) => {
+          if (responseError.response.data.validationErrors) {
+            setErrors(responseError.response.data.validationErrors);
+          }
+          Notify.error("Erro ao alterar conta");
+          setPendingApiCall(false);
+          setApiError(true);
+        });
+    } else {
+      AccountService.save(account)
+        .then((response) => {
+          setPendingApiCall(false);
+          navigate("/accounts");
+        })
+        .catch((responseError) => {
+          if (responseError.response.data.validationErrors) {
+            setErrors(responseError.response.data.validationErrors);
+          }
+          Notify.error("Erro ao cadastrar conta");
+          setPendingApiCall(false);
+          setApiError(true);
+        });
+    }
   };
 
   const schemaTest = Yup.object().shape({
@@ -156,10 +178,11 @@ export function AccountFormPage() {
         "len",
         "Nome precisa ter entre 1 e 255 caracteres",
         (value: any) =>
-          value && value.toString().length >= 1 && value.toString().length <= 255
+          value &&
+          value.toString().length >= 1 &&
+          value.toString().length <= 255
       )
       .required("Is required"),
-
   });
 
   return (
@@ -227,7 +250,6 @@ export function AccountFormPage() {
                     // onChange={onChange}
                     // value={form.number}
                     // name="number" */}
-                  
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-800">
