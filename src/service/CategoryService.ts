@@ -5,6 +5,10 @@ const save = (category: ICategory) => {
   return api.post("/categories", category);
 };
 
+const update = (category: ICategory) => {
+  return api.put("/categories", category);
+};
+
 const findAll = () => {
   return api.get("/categories");
 };
@@ -19,6 +23,7 @@ const findById = (id: number) => {
 
 const CategoryService = {
   save,
+  update,
   findAll,
   remove,
   findById,

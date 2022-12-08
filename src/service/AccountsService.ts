@@ -1,6 +1,10 @@
 import { IAccount } from "../commons/interfaces";
 import { api } from "../lib/axios";
 
+const update = (account: IAccount) => {
+  return api.put("/accounts", account);
+};
+
 const save = (account: IAccount) => {
   return api.post("/accounts", account);
 };
@@ -19,6 +23,7 @@ const findById = (id: number) => {
 
 const AccountService = {
   save,
+  update,
   findAll,
   remove,
   findById,

@@ -5,6 +5,10 @@ const save = (account: IMovimentationInsert) => {
   return api.post("/movimentation", account);
 };
 
+const update = (account: IMovimentationInsert) => {
+  return api.put("/movimentation", account);
+};
+
 const findAll = () => {
   return api.get("/movimentation");
 };
@@ -19,6 +23,7 @@ const findById = (id: number) => {
 
 const MovementationService = {
   save,
+  update,
   findAll,
   remove,
   findById,
