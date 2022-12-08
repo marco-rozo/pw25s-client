@@ -27,6 +27,7 @@ export interface IAccount {
 }
 
 export interface IMovimentationInsert {
+  id?: string;
   accountId?: number;
   categoryId?: number;
   value: number;
