@@ -31,8 +31,9 @@ export function MovimentationListPage() {
 
   let typeMovimentation = (type: number) => {
     let filter = typesMovimentation.filter((e) => {
-      return Number(e.id) === type;
+      return Number(e.id) === Number(type);
     });
+
     return filter[0].name.toString();
   };
 
@@ -78,7 +79,7 @@ export function MovimentationListPage() {
         </div>
 
         {apiError && <DangerAlert text={apiError} />}
-        <div className="w-full md:w-11/12 mt-5">
+        <div className="w-full md:w-11/12 mt-5 mb-5">
           <Table className="w-full table-fixed" striped={true} hoverable={true}>
             <Table.Head>
               <Table.HeadCell className="w-1/12 px-6 py-2 text-xs text-gray-500 col whitespace-nowrap">
@@ -100,7 +101,7 @@ export function MovimentationListPage() {
                 Conta
               </Table.HeadCell>
               <Table.HeadCell className="text-center w-2/12 md:w-3/12 px-6 py-2 text-xs text-gray-500 col">
-                Data
+                Ultima alteração
               </Table.HeadCell>
               <Table.HeadCell className="text-center w-3/12 px-6 py-2 text-xs text-gray-500 text-center	">
                 Options
@@ -115,7 +116,13 @@ export function MovimentationListPage() {
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     {movimentation.id}
                   </Table.Cell>
-                  <Table.Cell className={movimentation.type == 0 ? "text-center text-green-400 " : "text-center text-red-400"}>
+                  <Table.Cell
+                    className={
+                      movimentation.type == 0
+                        ? "text-center text-green-400 "
+                        : "text-center text-red-400"
+                    }
+                  >
                     {typeMovimentation(movimentation.type)}
                   </Table.Cell>
                   <Table.Cell className="text-center">
