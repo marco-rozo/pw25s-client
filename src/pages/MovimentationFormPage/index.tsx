@@ -64,11 +64,17 @@ export function MovimentationFormPage() {
 
   // Executa ao carregar o componente
   useEffect(() => {
-    // Busca a lista de categorias
     AccountService.findAll()
       .then((response) => {
         // caso sucesso, adiciona a lista no state
         setAccounts(response.data);
+
+        setForm((previousForm) => {
+          return {
+            ...previousForm,
+            account: { id: response.data[0].id ?? undefined, name: "" },
+          };
+        });
 
         CategoryService.findAll()
           .then((response) => {
@@ -85,8 +91,14 @@ export function MovimentationFormPage() {
                       value: response.data.value,
                       amountPaid: response.data.amountPaid,
                       description: response.data.description,
-                      category: { id: response.data.category.id, name: "" },
-                      account: { id: response.data.account.id, name: "" },
+                      category: {
+                        id: response.data.category.id,
+                        name: response.data.category.name,
+                      },
+                      account: {
+                        id: response.data.account.id,
+                        name: response.data.account.name,
+                      },
                       type: response.data.type,
                     });
                     setApiError("");
@@ -184,19 +196,36 @@ export function MovimentationFormPage() {
       description: form.description,
     };
     setPendingApiCall(true);
-    MovementationService.save(movimentation)
-      .then((response) => {
-        setPendingApiCall(false);
-        navigate("/movimentation");
-      })
-      .catch((responseError) => {
-        if (responseError.response.data.validationErrors) {
-          setErrors(responseError.response.data.validationErrors);
-        }
-        Notify.error("Erro ao cadastrar movimentação");
-        setPendingApiCall(false);
-        setApiError(responseError);
-      });
+    if (id) {
+      movimentation.id = id;
+      MovementationService.update(movimentation)
+        .then((response) => {
+          setPendingApiCall(false);
+          navigate("/movimentation");
+        })
+        .catch((responseError) => {
+          if (responseError.response.data.validationErrors) {
+            setErrors(responseError.response.data.validationErrors);
+          }
+          Notify.error("Erro ao alterar movimentação");
+          setPendingApiCall(false);
+          setApiError(responseError);
+        });
+    } else {
+      MovementationService.save(movimentation)
+        .then((response) => {
+          setPendingApiCall(false);
+          navigate("/movimentation");
+        })
+        .catch((responseError) => {
+          if (responseError.response.data.validationErrors) {
+            setErrors(responseError.response.data.validationErrors);
+          }
+          Notify.error("Erro ao cadastrar movimentação");
+          setPendingApiCall(false);
+          setApiError(responseError);
+        });
+    }
   };
 
   return (
