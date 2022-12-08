@@ -72,19 +72,35 @@ export function CategoryFormPage() {
       name: form.name,
     };
     setPendingApiCall(true);
-    CategoryService.save(category)
-      .then((response) => {
-        setPendingApiCall(false);
-        navigate("/categories");
-      })
-      .catch((responseError) => {
-        if (responseError.response.data.validationErrors) {
-          setErrors(responseError.response.data.validationErrors);
-        }
-        Notify.error("Erro ao cadastrar categoria");
-        setPendingApiCall(false);
-        setApiError(true);
-      });
+    if (id) {
+      CategoryService.update(category)
+        .then((response) => {
+          setPendingApiCall(false);
+          navigate("/categories");
+        })
+        .catch((responseError) => {
+          if (responseError.response.data.validationErrors) {
+            setErrors(responseError.response.data.validationErrors);
+          }
+          Notify.error("Erro ao alterar categoria");
+          setPendingApiCall(false);
+          setApiError(true);
+        });
+    } else {
+      CategoryService.save(category)
+        .then((response) => {
+          setPendingApiCall(false);
+          navigate("/categories");
+        })
+        .catch((responseError) => {
+          if (responseError.response.data.validationErrors) {
+            setErrors(responseError.response.data.validationErrors);
+          }
+          Notify.error("Erro ao cadastrar categoria");
+          setPendingApiCall(false);
+          setApiError(true);
+        });
+    }
   };
 
   return (
