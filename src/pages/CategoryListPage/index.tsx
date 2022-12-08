@@ -55,7 +55,7 @@ export function CategoryListPage() {
         </div>
 
         {apiError && <DangerAlert text={apiError} />}
-        <div className="w-full md:w-11/12 mt-5">
+        <div className="w-full md:w-11/12 mt-5 mb-5">
           <Table className="w-full table-fixed" striped={true} hoverable={true}>
             <Table.Head>
               <Table.HeadCell className="w-1/12 px-6 py-2 text-xs text-gray-500 col whitespace-nowrap">
