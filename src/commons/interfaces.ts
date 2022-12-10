@@ -47,3 +47,15 @@ export interface IMovimentation {
   category: ICategory;
   account: IAccount;
 }
+
+export interface IDashBoard {
+  valueTotalReceipts: number;
+  valueTotalReceived: number;
+  valueRemainingReceipts: number;
+  numReceipts: number;
+  valueTotalExpenses: number;
+  valueTotalExpensesPaid: number;
+  valueRemainingExpenses: number;
+  numExpenses: number;
+  balance: number;
+}
